@@ -6,6 +6,7 @@
 using namespace std;
 
 
+
 class Autocomplete{
     private:
         struct TrieNode{
@@ -19,6 +20,16 @@ class Autocomplete{
         TrieNode* root;
 
     public:
+
+    Autocomplete() {
+        root = new TrieNode(' '); // 初始化根节点
+    }
+    ~Autocomplete() {
+    if (root != nullptr) {
+        deleteTrie(root);
+    }
+    }
+
         void insert(string word){
             TrieNode* node = root;
             for(auto it = word.begin(); it != word.end(); it++){
@@ -33,8 +44,9 @@ class Autocomplete{
                     node = newNode;
                 }
             }
+            node->isEndOfWord = true;
         }
-        vector<string>getSuggestions(string partialWord="ba")
+        vector<string>getSuggestions(string partialWord)
         {
             vector<string> res;
             TrieNode* node = root;
@@ -68,6 +80,12 @@ class Autocomplete{
             if(node->isEndOfWord){
                 res.push_back(word);
             }
+        }
+        void deleteTrie(TrieNode* node) {
+            for (auto child : node->children) {
+                deleteTrie(child);
+            }
+            delete node;
         }
 };
 
