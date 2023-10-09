@@ -1,7 +1,7 @@
 #include<string>
 using namespace std;
 
-struct TrieNode{
+/*struct TrieNode{
     int routerId;
     TrieNode* branch[2];
 
@@ -11,11 +11,23 @@ struct TrieNode{
         branch[1] = nullptr;
     }
 
-};
+};*/
 
 class PrefixMatcher{
     private:
+        struct TrieNode{
+            int routerId;
+            TrieNode* branch[2];
+
+            TrieNode(){
+            routerId = -1;
+            branch[0] = nullptr;
+            branch[1] = nullptr;
+            }
+
+        };
         TrieNode* root;
+
     public:
         PrefixMatcher(){
             root = new TrieNode();

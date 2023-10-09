@@ -1,7 +1,7 @@
 #include<vector>
 #include<string>
 using namespace std;
-
+/*
 struct TrieNode{
     char value;
     bool isEndOfWord;
@@ -10,9 +10,18 @@ struct TrieNode{
 
     } 
 };
+*/
 
 class Autocomplete{
     private:
+        struct TrieNode{
+            char value;
+            bool isEndOfWord;
+            vector<TrieNode*> children;
+            TrieNode(char val) : value(val), isEndOfWord(false){
+
+            } 
+        };
         TrieNode* root;
 
     public:
