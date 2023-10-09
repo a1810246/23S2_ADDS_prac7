@@ -8,30 +8,30 @@ using namespace std;
 
 class PrefixMatcher{
     private:
-        struct TrieNode{
+        struct Trie{
             int routerId;
-            TrieNode* branch[2];
+            Trie* branch[2];
 
-            TrieNode(){
+            Trie(){
             routerId = -1;
             branch[0] = nullptr;
             branch[1] = nullptr;
             }
 
         };
-        TrieNode* root;
+        Trie* root;
 
     public:
         PrefixMatcher(){
-            root = new TrieNode();
+            root = new Trie();
         }
 
         void insert(const string& address, int routerId){
-            TrieNode* current = root;
+            Trie* current = root;
             for(auto it = address.begin(); it != address.end(); it++){
                 int index = *it - '0';
                 if(current->branch[index] == nullptr){
-                    current->branch[index] = new TrieNode;
+                    current->branch[index] = new Trie;
                 }
 
                 current = current->branch[index];
@@ -39,7 +39,7 @@ class PrefixMatcher{
             current->routerId = routerId;
         }
         int selectRouter(const string& networkAddress){
-            TrieNode* current = root;
+            Trie* current = root;
             int lastRouterId = -1;
 
             for(auto it = networkAddress.begin(); it != networkAddress.end(); it++){
