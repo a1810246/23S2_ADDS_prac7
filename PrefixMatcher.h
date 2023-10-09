@@ -1,3 +1,6 @@
+#ifndef PREFIXMATCHER
+#define PREFIXMATCHER
+
 #include<string>
 using namespace std;
 
@@ -53,3 +56,4 @@ class PrefixMatcher{
         }
 };
 
+#endif

@@ -1,3 +1,6 @@
+#ifndef AUTOCOMPLETE
+#define AUTOCOMPLETE
+
 #include<vector>
 #include<string>
 using namespace std;
@@ -67,3 +70,5 @@ class Autocomplete{
             }
         }
 };
+
+#endif
