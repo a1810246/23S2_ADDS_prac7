@@ -9,20 +9,20 @@ using namespace std;
 
 class Autocomplete{
     private:
-        struct TrieNode{
+        struct Trie{
             char value;
             bool isEndOfWord;
-            vector<TrieNode*> children;
-            TrieNode(char val) : value(val), isEndOfWord(false){
+            vector<Trie*> children;
+            Trie(char val) : value(val), isEndOfWord(false){
 
             } 
         };
-        TrieNode* root;
+        Trie* root;
 
     public:
 
     Autocomplete() {
-        root = new TrieNode(' '); // 初始化根节点
+        root = new Trie(' '); // 初始化根节点
     }
     ~Autocomplete() {
     if (root != nullptr) {
@@ -31,15 +31,15 @@ class Autocomplete{
     }
 
         void insert(string word){
-            TrieNode* node = root;
+            Trie* node = root;
             for(auto it = word.begin(); it != word.end(); it++){
                 char c = *it;
-                TrieNode* child = findChild(node,c);
+                Trie* child = findChild(node,c);
                 if(child != nullptr){
                     node = child;
                 }
                 else{
-                    TrieNode* newNode = new TrieNode(c);
+                    Trie* newNode = new Trie(c);
                     node->children.push_back(newNode);
                     node = newNode;
                 }
@@ -49,7 +49,7 @@ class Autocomplete{
         vector<string>getSuggestions(string partialWord)
         {
             vector<string> res;
-            TrieNode* node = root;
+            Trie* node = root;
             for(auto it = partialWord.begin(); it!=partialWord.end(); it++)
             {
                 char c = *it;
@@ -63,25 +63,25 @@ class Autocomplete{
             return res;
         }
 
-        TrieNode* findChild(TrieNode* parent, char c){
+        Trie* findChild(Trie* parent, char c){
             for(auto it = parent->children.begin(); it != parent->children.end(); it++){
-                TrieNode* child = *it;
+                Trie* child = *it;
                 if(child->value == c){
                     return child;
                 }
             }
             return nullptr;
         }
-        void findWords(TrieNode* node, string word, vector<string>& res){
+        void findWords(Trie* node, string word, vector<string>& res){
             for(auto it = node->children.begin(); it != node->children.end(); it++){
-                TrieNode* child = *it;
+                Trie* child = *it;
                 findWords(child, word + child->value, res);
             }
             if(node->isEndOfWord){
                 res.push_back(word);
             }
         }
-        void deleteTrie(TrieNode* node) {
+        void deleteTrie(Trie* node) {
             for (auto child : node->children) {
                 deleteTrie(child);
             }
