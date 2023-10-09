@@ -1,17 +1,7 @@
 #include<string>
 using namespace std;
 
-/*struct TrieNode{
-    int routerId;
-    TrieNode* branch[2];
 
-    TrieNode(){
-        routerId = -1;
-        branch[0] = nullptr;
-        branch[1] = nullptr;
-    }
-
-};*/
 
 class PrefixMatcher{
     private:

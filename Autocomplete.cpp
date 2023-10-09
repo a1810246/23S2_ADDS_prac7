@@ -1,16 +1,7 @@
 #include<vector>
 #include<string>
 using namespace std;
-/*
-struct TrieNode{
-    char value;
-    bool isEndOfWord;
-    vector<TrieNode*> children;
-    TrieNode(char val) : value(val), isEndOfWord(false){
 
-    } 
-};
-*/
 
 class Autocomplete{
     private:
@@ -40,7 +31,22 @@ class Autocomplete{
                 }
             }
         }
-        vector<string>getSuggestions(string partialWord);
+        vector<string>getSuggestions(string partialWord="ba")
+        {
+            vector<string> res;
+            TrieNode* node = root;
+            for(auto it = partialWord.begin(); it!=partialWord.end(); it++)
+            {
+                char c = *it;
+                node = findChild(node,c);
+                if(node == nullptr)
+                {
+                    return res;
+                }
+            }
+            findWords(node, partialWord, res);
+            return res;
+        }
 
         TrieNode* findChild(TrieNode* parent, char c){
             for(auto it = parent->children.begin(); it != parent->children.end(); it++){
